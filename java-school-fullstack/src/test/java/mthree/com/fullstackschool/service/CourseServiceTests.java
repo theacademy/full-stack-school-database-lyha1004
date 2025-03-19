@@ -4,6 +4,8 @@ import mthree.com.fullstackschool.dao.CourseDao;
 import mthree.com.fullstackschool.model.Course;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -13,7 +15,8 @@ public class CourseServiceTests {
 
     public CourseServiceTests() {
         CourseDao courseDao = new CourseDaoStubImpl();
-        courseService = new CourseServiceImpl(courseDao);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        courseService = new CourseServiceImpl(jdbcTemplate, courseDao);
     }
 
     @Test

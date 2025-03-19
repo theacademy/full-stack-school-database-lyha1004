@@ -4,6 +4,8 @@ import mthree.com.fullstackschool.dao.TeacherDao;
 import mthree.com.fullstackschool.model.Teacher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -13,7 +15,8 @@ public class TeacherServiceTests {
 
     public TeacherServiceTests() {
         TeacherDao teacherDao = new TeacherDaoStubImpl();
-        teacherService = new TeacherServiceImpl(teacherDao);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        teacherService = new TeacherServiceImpl(jdbcTemplate, teacherDao);
     }
 
     @Test
