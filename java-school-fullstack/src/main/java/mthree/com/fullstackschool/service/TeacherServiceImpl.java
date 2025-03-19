@@ -34,8 +34,15 @@ public class TeacherServiceImpl implements TeacherServiceInterface {
     public Teacher getTeacherById(int id) {
         //YOUR CODE STARTS HERE
 
-
+        try {
             return teacherDao.findTeacherById(id);
+        } catch (DataAccessException ex) {
+            Teacher teacherNotFound = new Teacher();
+            teacherNotFound.setTeacherFName("Teacher Not Found");
+            teacherNotFound.setTeacherLName("Teacher Not Found");
+            return teacherNotFound;
+        }
+
 
         //YOUR CODE ENDS HERE
     }
@@ -43,7 +50,12 @@ public class TeacherServiceImpl implements TeacherServiceInterface {
     public Teacher addNewTeacher(Teacher teacher) {
         //YOUR CODE STARTS HERE
 
-
+        if (teacher.getTeacherFName() == null || teacher.getTeacherFName().trim().isEmpty() ||
+            teacher.getTeacherLName() == null || teacher.getTeacherLName().trim().isEmpty()) {
+            teacher.setTeacherFName("First Name blank, teacher NOT added");
+            teacher.setTeacherLName("Last Name blank, teacher NOT added");
+            return teacher;
+        }
         return teacherDao.createNewTeacher(teacher);
 
         //YOUR CODE ENDS HERE
@@ -55,7 +67,7 @@ public class TeacherServiceImpl implements TeacherServiceInterface {
         if ( id != teacher.getTeacherId()) {
             teacher.setTeacherFName("IDs do not match, teacher not updated");
             teacher.setTeacherLName("IDs do not match, teacher not updated");
-            teacher.setDept("IDs do not match, teacher not updated");
+            return teacher;
         }
         teacherDao.updateTeacher(teacher);
         return getTeacherById(id);

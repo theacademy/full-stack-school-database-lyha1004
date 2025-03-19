@@ -1,5 +1,6 @@
 package mthree.com.fullstackschool.service;
 
+import mthree.com.fullstackschool.dao.CourseDao;
 import mthree.com.fullstackschool.dao.StudentDao;
 import mthree.com.fullstackschool.model.Student;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,8 @@ public class StudentServiceTests {
     public StudentServiceTests() {
         StudentDao studentDao = new studentDaoStubImpl();
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        studentService = new StudentServiceImpl(jdbcTemplate, studentDao);
+        CourseDao courseDao = new CourseDaoStubImpl();
+        studentService = new StudentServiceImpl(jdbcTemplate, studentDao, courseDao);
     }
 
     @Test
